@@ -1,0 +1,13 @@
+SHOW DATABASES;
+
+CREATE DATABASE my_db;
+
+SHOW DATABASES; #DB一覧を表示
+
+DROP DATABASE my_db;
+
+USE mysql; #mysqlを利用
+
+SELECT DATABASE();
+
+USE my_db;
