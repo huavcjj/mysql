@@ -82,3 +82,6 @@ SELECT * FROM people LIMIT 3,2;
 
 SELECT * FROM people LIMIT 2 OFFSET 2;
 ------------------------------------------------------------
+SELECT * FROM people;
+
+TRUNCATE people;
