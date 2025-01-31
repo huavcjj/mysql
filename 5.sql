@@ -36,3 +36,86 @@ SELECT CURDATE();
 
 SELECT DATE_FORMAT(NOW(),"%Y");
 ------------------------------------------------------------
+-- LENGTH, CHAR_LENGTH
+
+SELECT LENGTH("ABC");
+SELECT LENGTH("あいう");
+
+SELECT name, LENGTH(name) FROM users;
+
+-- CHAR_LENGTH
+
+SELECT CHAR_LENGTH("ABC");
+SELECT CHAR_LENGTH("あいう");
+
+SELECT name, CHAR_LENGTH(name) FROM users;
+
+-- TRIM, LTRIM, RTRIM
+
+SELECT LTRIM("  ABC  ");
+SELECT RTRIM("  ABC  ");
+SELECT TRIM("  ABC  ");
+
+SELECT name,CHAR_LENGTH(name) 
+FROM employees 
+WHERE CHAR_LENGTH(name) <> CHAR_LENGTH(TRIM(name));
+
+UPDATE employees 
+SET name=TRIM(name)
+WHERE CHAR_LENGTH(name) <> CHAR_LENGTH(TRIM(name));
+
+-- LENGTH, CHAR_LENGTH
+
+SELECT LENGTH("ABC");
+SELECT LENGTH("あいう");
+
+SELECT name, LENGTH(name) FROM users;
+
+-- CHAR_LENGTH
+
+SELECT CHAR_LENGTH("ABC");
+SELECT CHAR_LENGTH("あいう");
+
+SELECT name, CHAR_LENGTH(name) FROM users;
+
+-- TRIM, LTRIM, RTRIM
+
+SELECT LTRIM("  ABC  ");
+SELECT RTRIM("  ABC  ");
+SELECT TRIM("  ABC  ");
+
+SELECT name,CHAR_LENGTH(name) 
+FROM employees 
+WHERE CHAR_LENGTH(name) <> CHAR_LENGTH(TRIM(name));
+
+UPDATE employees 
+SET name=TRIM(name)
+WHERE CHAR_LENGTH(name) <> CHAR_LENGTH(TRIM(name));
+
+-- REPLACE
+
+SELECT REPLACE("I like golang","golang","python");
+
+SELECT REPLACE(name,"Mrs","Mr") FROM users WHERE name LIKE "Mrs%";
+
+UPDATE users SET name = REPLACE(name,"Mrs","Mr") WHERE name LIKE "Mrs%";
+
+SELECT * FROM users;
+
+-- UPPER LOWER
+
+SELECT UPPER("golang");
+
+SELECT LOWER("APPLE");
+
+SELECT name, UPPER(name), LOWER(name) FROM users;
+
+-- SUBSTRING 
+
+SELECT SUBSTRING(name,2,3), name FROM employees;
+
+SELECT * FROM employees WHERE SUBSTRING(name,2,1)= "田";
+
+-- REVERSE
+
+SELECT REVERSE(name), name FROM employees;
