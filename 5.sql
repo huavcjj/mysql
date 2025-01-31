@@ -119,3 +119,30 @@ SELECT * FROM employees WHERE SUBSTRING(name,2,1)= "田";
 -- REVERSE
 
 SELECT REVERSE(name), name FROM employees;
+------------------------------------------------------------
+-- ROUND, FLOOR, CEILING
+
+SELECT ROUND(13,14);
+
+SELECT FLOOR(3.14);
+
+SELECT CEILING(3.14);
+
+SELECT RAND();
+
+SELECT FLOOR(RAND() * 10);
+
+-- POWER
+
+SELECT POWER(3,4);
+
+SELECT weight / POWER(height/100,2) AS BMI FROM students;
+
+-- COALESCE
+
+SELECT * FROM tests_score;
+
+SELECT COALESCE(NULL, NULL, NULL, "A", NULL, "B");
+
+SELECT COALESCE(test_score_1, test_score_2, test_score_3) AS score FROM tests_score;
+
