@@ -100,3 +100,26 @@ SELECT * FROM employees WHERE department IN(" 営業部 ", " 開発部 ");
 
 SELECT * FROM employees WHERE NOT department = " 営業部 ";
 
+------------------------------------------------------------
+-- IN NUL
+
+SELECT * FROM customers WHERE name IS NULL;
+
+SELECT * FROM customers WHERE name IN("河野 文典", "稲田 季雄", NULL);
+
+SELECT * FROM customers WHERE name IN("河野 文典", "稲田 季雄") OR name IS NULL;
+
+-- NOT IN
+
+SELECT * FROM customers WHERE name NOT IN("河野 文典", "稲田 季雄",　NULL);
+
+SELECT * FROM customers WHERE name NOT IN("河野 文典", "稲田 季雄") AND name IS NOT NULL;
+
+
+-- ALL
+
+SELECT * FROM customers WHERE id < 10;
+
+SELECT * FROM users WHERE birth_day <= ALL(SELECT birth_day FROM customers WHERE id < 10);
+
+SELECT * FROM users WHERE birth_day <= ALL(SELECT birth_day FROM customers WHERE id < 10 AND birth_day IS NOT NULL);
