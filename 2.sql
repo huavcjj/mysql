@@ -88,3 +88,22 @@ ALTER TABLE users_table CHANGE COLUMN gender gender CHAR(1) AFTER post_code;
 ALTER TABLE users_table DROP PRIMARY KEY;
 
 ------------------------------------------------------------
+
+SELECT DATABASE();
+
+CREATE TABLE students(
+ id INT PRIMARY KEY,
+ name CHAR(10)
+)
+
+INSERT INTO students VALUES(1, "ABCDEF  ");
+ 
+SELECT * FROM students;
+
+ALTER TABLE students MODIFY name VARCHAR(10);
+
+INSERT INTO students VALUES(2,"ABCDEF  ");
+
+SELECT * FROM students;
+
+SELECT name, CHAR_LENGTH(name) FROM students;
