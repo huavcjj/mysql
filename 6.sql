@@ -95,3 +95,17 @@ SET birth_era = CASE
 	END;
 	
 SELECT * FROM users;
+
+-- CASE,NULL
+
+SELECT * FROM customers WHERE name IS NULL;
+
+SELECT
+	*,
+	CASE
+		WHEN name IS NULL THEN "不明"
+		ELSE ""
+	END AS "NULL CHECK"
+FROM customers 
+WHERE name IS NULL;
+
