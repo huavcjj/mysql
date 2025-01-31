@@ -56,3 +56,42 @@ SELECT
 		WHEN student_id % 3 = 2 THEN test_score_3
 	END AS score
 FROM tests_score;
+
+------------------------------------------------------------
+-- ORDER BY,CASE
+
+SELECT * FROM prefectures
+ORDER BY
+CASE
+	WHEN name IN ("香川県", "愛媛県", "徳島県", "高知県") THEN "四国"
+	ELSE "その他"
+END;
+
+
+-- UPDATE,CASE
+
+SELECT * FROM users;
+
+ALTER TABLE users ADD birth_era VARCHAR(2) AFTER birth_day;
+
+SELECT
+	*,
+	CASE
+		WHEN birth_day < "1989-01-07" THEN "昭和"
+		WHEN birth_day < "2019-05-01" THEN "平成"
+		WHEN birth_day >= "2019-05-01" THEN "令和"
+		ELSE "不明"
+	END AS "元号"
+FROM users;
+
+
+
+UPDATE users
+SET birth_era = CASE
+	WHEN birth_day < "1989-01-07" THEN "昭和"
+	WHEN birth_day < "2019-05-01" THEN "平成"
+	WHEN birth_day >= "2019-05-01" THEN "令和"
+	ELSE "不明"
+	END;
+	
+SELECT * FROM users;
