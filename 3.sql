@@ -49,4 +49,36 @@ SHOW TABLES;
 
 SELECT * FROM people;
 ------------------------------------------------------------
+SHOW TABLES;
 
+DESCRIBE people;
+
+ALTER TABLE people ADD age INT AFTER name;
+
+INSERT INTO people VALUES(1,"John",18, "2002-01-01");
+INSERT INTO people VALUES(2,"Alice",13, "2002-01-01");
+INSERT INTO people VALUES(3,"Paul",38, "2002-01-01");
+INSERT INTO people VALUES(4,"Chris",19, "2002-01-01");
+INSERT INTO people VALUES(5,"Vette",49, "2002-01-01");
+INSERT INTO people VALUES(6,"Tsuyoshi",41, "2002-01-01");
+
+SELECT * FROM people;
+
+SELECT * FROM people ORDER BY age;
+
+SELECT * FROM people ORDER BY age DESC;
+
+SELECT * FROM people ORDER BY name;
+
+SELECT * FROM people ORDER BY birth_day DESC, name DESC, age ASC;
+
+SELECT DISTINCT birth_day FROM people ORDER BY birth_day;
+
+SELECT DISTINCT name, birth_day FROM people;
+
+SELECT id, name, age FROM people LIMIT 3;
+
+SELECT * FROM people LIMIT 3,2;
+
+SELECT * FROM people LIMIT 2 OFFSET 2;
+------------------------------------------------------------
