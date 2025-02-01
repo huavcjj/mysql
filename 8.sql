@@ -45,3 +45,64 @@ DELETE FROM students WHERE id = 299;
 COMMIT;
 
 SET AUTOCOMMIT = 1;
+
+------------------------------------------------------------
+SHOW DATABASES;
+
+USE day_4_9_db;
+
+START TRANSACTION;
+
+SHOW TABLES;
+
+SELECT * FROM customers;
+
+UPDATE customers SET age = 43 WHERE id = 1;
+
+ROLLBACK;
+
+START TRANSACTION;
+
+UPDATE customers SET age = 22 WHERE id = 1;
+
+-- テーブル全体のロック
+UPDATE customers SET age = 22 WHERE name = "河野 文典";
+
+COMMIT;
+
+-- DELETE
+
+START TRANSACTION;
+
+-- 行ロック
+DELETE FROM customers WHERE id = 1;
+
+COMMIT;
+
+-- INSERT 
+
+START TRANSACTION;
+
+
+INSERT INTO customers VALUES(1, "田中 太郎", 22, "1999-02-23");
+
+SELECT * FROM customers;
+
+COMMIT;
+
+-- SELECTのロック
+-- FOR SHARE
+
+START TRANSACTION;
+
+SELECT * FROM customers WHERE id = 1 FOR SHARE;
+
+ROLLBACK;
+
+-- FOR UPDATE
+
+START TRANSACTION;
+
+SELECT * FROM customers WHERE id = 1 FOR UPDATE;
+
+ROLLBACK;
