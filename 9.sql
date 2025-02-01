@@ -146,3 +146,16 @@ SELECT
 	COUNT(*)
 FROM users
 GROUP BY age;
+
+------------------------------------------------------------
+-- HAVING
+
+SELECT department, AVG(salary) 
+FROM employees 
+GROUP BY department 
+HAVING AVG(salary) > 398000;
+
+SELECT birth_place, age, COUNT(*) FROM users
+GROUP BY birth_place,age
+HAVING COUNT(*) > 2
+ORDER BY COUNT(*);
