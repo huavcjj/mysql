@@ -128,3 +128,35 @@ SELECT
         ELSE "×"
     END AS "給料が平均より高いか"
 FROM employees AS emp;
+
+------------------------------------------------------------
+-- CREATE SELECT INSERT
+
+SHOW TABLES;
+
+CREATE TABLE tmp_students
+SELECT * FROM students;
+
+SELECT * FROM tmp_students;
+
+DESCRIBE tmp_students;
+
+DESCRIBE students;
+
+DROP TABLE tmp_students;
+
+CREATE TABLE tmp_students
+SELECT * FROM students WHERE id < 10;
+
+SELECT * FROM tmp_students;
+
+SELECT id + 9 AS id, first_name, last_name, 2 AS grade FROM usersr;
+
+CREATE TABLE names
+SELECT first_name, last_name FROM students
+UNION
+SELECT first_name, last_name FROM employees
+UNION
+SELECT first_name, last_name FROM customers;
+
+SELECT * FROM names;
