@@ -135,5 +135,36 @@ SELECT
 	LEAD(age,3,0) OVER(ORDER BY age)
 FROM customers;
 
+-- FIRST_VALUE, LAST_VALUE
 
+SELECT
+	*,
+	FIRST_VALUE(first_name) OVER(PARTITION BY department_id ORDER BY age),
+	LAST_VALUE(first_name) OVER(PARTITION BY department_id ORDER BY age RANGE BETWEEN UNBOUNDED AND UNBOUNDED FOLLOWING)
+FROM employees;
+
+-- NTILE
+
+SELECT 
+	age,
+	NTILE(10) OVER(ORDER BY age)
+FROM employees
+-- WHERE NTILE(10) OVER(ORDER BY age) = 8
+;
+
+
+SELECT * 
+FROM (
+    SELECT 
+        age,
+        NTILE(10) OVER(ORDER BY age) AS ntile_value
+    FROM employees
+) AS tmp
+WHERE tmp.ntile_value = 8;
+
+
+
+
+-- SQLの実行順序
+-- FORM,JOIN -> WHERE -> GROUP BY -> 集計関数 -> HAVING -> WINDOW関数 -> SELECT -> DISTINCT -> UNION/INTERSECT/EXCEPT -> ORDER BY -> OFFSET -> LIMIT
 
