@@ -115,3 +115,42 @@ WHERE (c1.first_name, c1.last_name, c1.phone_number) IN (
     SELECT c2.first_name, c2.last_name, c2.phone_number
     FROM customers_2 AS c2
 );
+------------------------------------------------------------
+
+-- EXCEPTをEXISTSで記述
+
+SELECT * FROM customers
+UNION
+SELECT * FROM customers_2;
+
+SELECT * FROM customers
+EXCEPT
+SELECT * FROM customers_2;
+
+SELECT * 
+FROM customers AS c1
+WHERE NOT EXISTS (
+	SELECT * 
+	FROM customers_2 AS c2
+	WHERE c1.id = c2.id
+	AND c1.first_name = c2.first_name
+	AND c1.last_name = c2.last_name
+	AND c1.age = c2.age
+);
+
+-- INTERSECTをEXISTSで記述
+
+SELECT * FROM customers
+INTERSECT
+SELECT * FROM customers_2;
+
+SELECT * 
+FROM customers AS c1
+WHERE EXISTS (
+	SELECT * 
+	FROM customers_2 AS c2
+	WHERE c1.id = c2.id
+	AND c1.first_name = c2.first_name
+	AND c1.last_name = c2.last_name
+	AND c1.age = c2.age
+);
