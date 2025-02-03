@@ -53,4 +53,65 @@ WHERE EXISTS (
 	FROM employees AS em2
 	WHERE em1.manager_id = em2.id
 );
+------------------------------------------------------------
+-- EXISTS NULLを返さない
 
+-- NOT EXISTS NULLを返す
+
+-- NULLを表示しない場合
+SELECT * 
+FROM customers AS c1
+WHERE EXISTS (
+    SELECT 1
+    FROM customers_2 AS c2 
+    WHERE c1.first_name = c2.first_name
+    AND c1.last_name = c2.last_name
+	AND c1.phone_number = c2.phone_number
+);
+
+-- NULLを表示する場合
+SELECT *
+FROM customers AS c1
+WHERE EXISTS (
+    SELECT 1
+    FROM customers_2 AS c2
+    WHERE c1.first_name = c2.first_name
+    AND c1.last_name = c2.last_name
+    AND (
+        c1.phone_number = c2.phone_number
+        OR (
+            c1.phone_number IS NULL
+            AND c2.phone_number IS NULL
+        )
+    )
+);	
+
+-- NOT EXISTS (NULLを表示)
+
+SELECT *
+FROM customers AS c1
+WHERE NOT EXISTS (
+	SELECT *
+	FROM customers_2 AS c2
+	WHERE c1.first_name = c2.first_name
+	AND c1.last_name = c2.last_name
+	AND c1.phone_number = c2.phone_number
+);
+
+-- NOT IN (NULLを非表示)
+
+SELECT *
+FROM customers AS c1
+WHERE (c1.first_name, c1.last_name, c1.phone_number) NOT IN (
+    SELECT c2.first_name, c2.last_name, c2.phone_number
+    FROM customers_2 AS c2
+);
+
+-- EXISTS をINで書く
+
+SELECT *
+FROM customers AS c1
+WHERE (c1.first_name, c1.last_name, c1.phone_number) IN (
+    SELECT c2.first_name, c2.last_name, c2.phone_number
+    FROM customers_2 AS c2
+);
