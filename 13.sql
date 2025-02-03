@@ -105,7 +105,35 @@ INNER JOIN (
 ) AS summary_salary
 ON emp.id = summary_salary.employee_id;
 
+------------------------------------------------------------
+-- ROW_NUMBER, RANK, DENSE_RANK
 
+SELECT
+	*,
+	ROW_NUMBER() OVER(ORDER BY age) AS row_num,
+	RANK() OVER(ORDER BY age) AS row_rank,
+	DENSE_RANK() OVER(ORDER BY age) AS row_dense_rank
+FROM employees;
+
+-- CUME_DIST, PERCENT_RANK
+
+SELECT
+	age,
+	RANK() OVER(ORDER BY age) AS row_rank,
+	COUNT(*) OVER() AS cnt,
+	PERCENT_RANK() OVER(ORDER BY age) AS p_age, -- (RANK - 1) / (行数 - 1)
+	CUME_DIST() OVER(ORDER BY age) AS c_age -- 現在の行の値より小さい行の割合
+FROM employees;
+
+-- LAG, LEAD
+
+SELECT
+	age,
+	LAG(age) OVER(ORDER BY age),
+	LAG(age,3,0) OVER(ORDER BY age),
+	LEAD(age) OVER(ORDER BY age),
+	LEAD(age,3,0) OVER(ORDER BY age)
+FROM customers;
 
 
 
