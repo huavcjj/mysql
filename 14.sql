@@ -95,3 +95,73 @@ INNER JOIN (
 ) AS stores
     ON stores.id = items.store_id
 GROUP BY CONCAT(customers.last_name, customers.first_name);
+
+
+
+SELECT * 
+FROM employees
+WHERE id IN (
+	SELECT employee_id 
+	FROM salaries
+	WHERE payment > 9000000
+);
+
+SELECT DISTINCT emp.*
+FROM employees AS emp
+INNER JOIN salaries AS sa
+	ON emp.id = sa.employee_id
+WHERE sa.payment > 9000000;
+
+SELECT * 
+FROM employees AS emp
+WHERE EXISTS(
+	SELECT 1
+	FROM salaries AS sa
+	WHERE emp.id = sa.employee_id AND sa.payment > 9000000
+);
+
+
+SELECT *
+FROM employees
+WHERE id NOT IN (
+	SELECT employee_id
+	FROM salaries
+);
+
+SELECT *
+FROM employees AS emp
+LEFT JOIN salaries AS sa
+	ON emp.id = sa.employee_id
+WHERE sa.id IS NULL;
+
+SELECT *
+FROM employees AS emp
+WHERE NOT EXISTS(
+	SELECT 1
+	FROM salaries AS sa
+	WHERE sa.employee_id = emp.id
+);
+
+
+SELECT * FROM employees;
+
+SELECT * FROM customers;
+
+WITH customers_age AS (
+	SELECT 
+		MAX(age) AS max_age,
+		MIN(age) AS min_age,
+		AVG(age) AS avg_age
+	FROM customers
+)
+SELECT 
+	*,
+	CASE
+		WHEN emp.age < ca.min_age THEN '最小未満'
+		WHEN emp.age < ca.avg_age THEN '平均未満'
+		WHEN emp.age < ca.max_age THEN '最大未満'
+		ELSE 'その他'
+	END AS 'customersとの比較'
+FROM employees AS emp
+CROSS JOIN customers_age AS ca;
+
