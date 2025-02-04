@@ -165,3 +165,37 @@ SELECT
 FROM employees AS emp
 CROSS JOIN customers_age AS ca;
 
+
+WITH tmp_customers AS (
+	SELECT 
+		*
+	FROM customers
+	WHERE age > 50
+), tmp_customers_orders AS (
+	SELECT
+		tc.id,
+		od.order_date,
+		SUM(od.order_amount * od.order_price) AS payment,
+		ROW_NUMBER() OVER(PARTITION BY tc.id ORDER BY od.order_date) AS row_num
+	FROM tmp_customers AS tc
+	INNER JOIN orders AS od
+		ON tc.id = od.customer_id
+	GROUP BY tc.id, od.order_date
+)
+SELECT
+	id,
+	order_date,
+	payment,
+	CASE
+		WHEN row_num < 7 THEN ""
+		ELSE AVG(payment) OVER(PARTITION BY id ORDER BY order_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) 
+	END AS "7日間の平均",
+	CASE
+		WHEN row_num < 15 THEN ""
+		ELSE AVG(payment) OVER(PARTITION BY id ORDER BY order_date ROWS BETWEEN 14 PRECEDING AND CURRENT ROW) 
+	END AS "15日間の平均",
+	CASE
+		WHEN row_num < 30 THEN ""
+		ELSE AVG(payment) OVER(PARTITION BY id ORDER BY order_date ROWS BETWEEN 29 PRECEDING AND CURRENT ROW) 
+	END AS "30日間の平均"
+FROM tmp_customers_orders;
