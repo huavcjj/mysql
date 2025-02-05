@@ -194,3 +194,45 @@ ALTER TABLE students DROP CONSTRAINT students_ibfk_1;
 
 
 ALTER TABLE students ADD CONSTRAINT fk_schools_students FOREIGN KEY(school_id) REFERENCES schools(id);
+
+
+-- AUTO_INCREMENT
+
+CREATE TABLE animals (
+	id INT PRIMARY KEY AUTO_INCREMENT COMMENT '主キーのID',
+	name VARCHAR(50) NOT NULL COMMENT '動物の名前'
+);
+
+SHOW FULL COLUMNS FROM animals;
+
+INSERT INTO animals VALUES(NULL,'Dog');
+
+SELECT * FROM animals;
+
+INSERT INTO animals(name) VALUES('Cat');
+
+
+SELECT AUTO_INCREMENT FROM information_schema.tables WHERE TABLE_NAME = 'animals';
+
+INSERT INTO animals VALUES(4,'Panda');
+
+INSERT INTO animals VALUES(NULL,'Fish');
+
+ALTER TABLE animals AUTO_INCREMENT = 100;
+
+INSERT INTO animals VALUES(NULL, 'Bird');
+
+
+
+INSERT INTO animals(name)
+SELECT 'Snake'
+UNION ALL
+SELECT 'Dino'
+UNION ALL
+SELECT 'Gibra';
+
+
+SELECT * FROM animals;
+
+INSERT INTO animals(name)
+SELECT name FROM animals;
