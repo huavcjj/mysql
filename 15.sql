@@ -155,3 +155,49 @@ CREATE TABLE tmp_names(
 );
 
 INSERT INTO tmp_names VALUES(NULL);
+
+-- CHECK
+
+CREATE TABLE customers(
+	id INT PRIMARY KEY,
+	name VARCHAR(255),
+	age INT CHECK(age >= 20)
+);
+
+INSERT INTO customers VALUES(1,"Taro",22);
+
+-- INSERT INTO customers VALUES(2,"Mike",19);
+
+
+CREATE TABLE students (
+	id INT PRIMARY KEY,
+	name VARCHAR(255),
+	age INT,
+	gender CHAR(1),
+	CONSTRAINT chk_students CHECK((age >= 15 AND age <= 20) AND (gender = "F" or gender = "M"))
+);
+
+INSERT INTO students VALUES (1,"Taro",15,"M");
+
+-- INSERT INTO students VALUES (2,"Sachiko",22,"M");
+
+-- INSERT INTO students VALUES (3,"Mike",18,"O");
+
+
+CREATE TABLE employees (
+	company_id INT,
+	employee_code CHAR(8),
+	name VARCHAR(255),
+	age INT,
+	PRIMARY KEY (company_id,employee_code)
+);
+
+
+INSERT INTO employees VALUES (1,"00000001","Taro",19);
+
+INSERT INTO employees VALUES (2,"00000001", "Mike",20);
+
+INSERT INTO employees VALUES (2,"00000002", "Role",20);
+
+
+-- INSERT INTO employees VALUES (1,"00000001", "Miku", 29);
