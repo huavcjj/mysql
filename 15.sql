@@ -111,3 +111,47 @@ INNER JOIN orders AS od
 	ON ct.id = od.customer_id;
 
 SELECT * FROM customer_orders;
+
+SHOW TABLES;
+
+-- NOT NULL, DEFAULT
+
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255) NOT NULL DEFAULT ''
+);
+
+INSERT INTO users(id) VALUES(1);
+
+SELECT * FROM users;
+
+CREATE TABLE users_2(
+	id INT PRIMARY KEY,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255) NOT NULL,
+    age INT DEFAULT 0
+);
+
+INSERT INTO users_2(id,first_name,last_name) VALUES(1,"Rola","Yamada");
+
+SELECT * FROM users_2;
+
+INSERT INTO users_2 VALUES(2,"Jiro","Suzuki",NULL);
+
+-- UNIQUE
+
+CREATE TABLE login_users(
+	id INT PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL UNIQUE
+);
+
+INSERT INTO login_users VALUES(1,"Go","go@mail.com");
+INSERT INTO login_users VALUES(2,"Java","java@mail.com");
+
+CREATE TABLE tmp_names(
+	name VARCHAR(255) UNIQUE
+);
+
+INSERT INTO tmp_names VALUES(NULL);
