@@ -85,3 +85,36 @@ INSERT INTO managers(name,is_superuser) VALUES('Mike',true);
 INSERT INTO managers(name,is_superuser) VALUES('Rola',false);
 
 SELECT * FROM managers WHERE is_superuser = false;
+
+-- DATE TIME
+
+CREATE TABLE alarms (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	alarm_day DATE,
+	alarm_time TIME,
+	create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+SELECT CURRENT_TIMESTAMP, NOW(), CURRENT_DATE, CURRENT_TIME;
+
+
+INSERT INTO alarms(alarm_day, alarm_time) VALUES('2019-01-01','19:20:19');
+INSERT INTO alarms(alarm_day, alarm_time) VALUES('2023-01-01','23:30:19');
+SELECT * FROM alarms;
+
+UPDATE alarms SET alarm_time = CURRENT_TIME WHERE id = 1;
+
+
+-- DATETIME, TIMESTAMP
+CREATE TABLE tmp_datetime_timestamp(
+	val_datetime DATETIME,
+	val_timestamp TIMESTAMP,
+	val_datetime_3 DATETIME(3),
+	val_timestamp_3 TIMESTAMP(3)
+);
+
+INSERT INTO tmp_datetime_timestamp
+VALUES (CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
+
+SELECT * FROM tmp_datetime_timestamp;
