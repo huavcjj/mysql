@@ -118,3 +118,23 @@ INSERT INTO tmp_datetime_timestamp
 VALUES (CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
 
 SELECT * FROM tmp_datetime_timestamp;
+
+SELECT * FROM students;
+
+SHOW INDEX FROM students;
+
+CREATE INDEX idx_students_name ON students(name);
+EXPLAIN SELECT * FROM students WHERE name = 'Taro';
+
+
+-- 関数インデックス
+CREATE INDEX idx_students_lower_name ON students((LOWER(name)));
+EXPLAIN SELECT * FROM students WHERE LOWER(name) = 'taro';
+
+
+SELECT * FROM users;
+
+CREATE UNIQUE INDEX idx_users_uniq_first_name ON users(first_name);
+
+INSERT INTO users(id,first_name) VALUES(2,'abc');
+
