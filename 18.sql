@@ -48,3 +48,35 @@ INNER JOIN items AS it
 	ON it.store_id = st.id;
 
 RENAME TABLE stores_items_view TO new_stores_items_view;
+
+-- ORM:自動的にバインド変数が活用される; SQLを直書き出しして実行すると、バインド変数を使わずに実行される
+
+-- バインド変数
+SET @customer_id = 5;
+SELECT * FROM customers WHERE id = @customer_id;
+
+CREATE DATABASE day_19_21_db;
+
+USE day_19_21_db;
+
+SHOW TABLES;
+
+-- 統計情報の確認
+SELECT * FROM mysql.innodb_table_stats WHERE database_name = "day_19_21_db";
+
+SELECT * FROM prefectures;
+
+INSERT INTO prefectures VALUES(48,'不明');
+
+DELETE FROM prefectures WHERE prefecture_code = 48 AND name = '不明';
+
+-- 統計情報の更新
+ANALYZE TABLE prefectures;
+
+-- SQLを実行せずに実行計画だけを表示
+EXPLAIN SELECT * FROM customers;
+
+-- SQLを実行して実行計画だけを表示
+EXPLAIN ANALYZE SELECT * FROM customers;
+
+SELECT * FROM customers;
