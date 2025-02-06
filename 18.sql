@@ -80,3 +80,39 @@ EXPLAIN SELECT * FROM customers;
 EXPLAIN ANALYZE SELECT * FROM customers;
 
 SELECT * FROM customers;
+
+-- フルスキャンとインデックススキャンのどちらを使うべきか
+-- 絞り込まれる行の全体に占める割合
+-- 20%以上:フルスシャン
+-- 1-20%:ケースバイケース
+-- 1%未満:インデックススキャン
+
+
+EXPLAIN ANALYZE SELECT * FROM customers;
+
+EXPLAIN ANALYZE SELECT * FROM customers WHERE id < 10;
+
+EXPLAIN ANALYZE SELECT * FROM customers WHERE first_name = 'Olivia';
+
+
+CREATE INDEX idx_customer_first_name ON customers(first_name);
+EXPLAIN ANALYZE SELECT * FROM customers WHERE first_name = 'Olivia';
+
+EXPLAIN ANALYZE SELECT * FROM customers WHERE gender='F';
+
+CREATE INDEX idx_customers_gender ON customers(gender);
+EXPLAIN ANALYZE SELECT * FROM customers WHERE gender='F';
+
+-- Nested Loop JOIN
+
+-- Hash JOIN
+
+-- Sort Merge JOIN
+
+
+EXPLAIN ANALYZE SELECT 
+	*
+FROM customers AS ct
+INNER JOIN prefectures AS pr
+	ON ct.prefecture_code = pr.prefecture_code;
+	
